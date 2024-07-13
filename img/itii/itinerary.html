@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <title>Document</title>
+  <style>
+
+:root {
+--dark: #222;
+--light: #ccc;
+--grey: #888;
+--space: 20px;
+}
+
+body {
+	background: dark;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+ol {
+	list-style: none;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+
+	&,
+	&:visited {
+		color: dark;
+	}
+}
+
+section {
+	h1 {
+		color: light;
+		margin-bottom: 30px;
+		font-size: 20px;
+	}
+}
+
+
+main {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 40px space;
+}
+
+
+.cards {
+	font-size: 0;
+	white-space: nowrap;
+}
+
+.card-outter {
+	display: inline-block;
+	padding-left: space;
+}
+
+.card {
+	background: light;
+	width: 250px;
+	padding: space;
+
+	.title {
+		font-size: 16px;
+		margin: 10px 0 6px;
+	}
+
+	.description {
+		font-size: 12px;
+		margin: 0;
+	}
+}
+
+
+.slider-container {
+	position: relative;
+	overflow: hidden;
+	margin: 0 -20px;
+
+
+
+	&:before,
+	&:after {
+		position: absolute;
+		top: 0;
+		z-index: 1;
+		content: "";
+		display: block;
+		width: space;
+		height: 100%;
+	}
+
+	&:before {
+		left: 0;
+		background: linear-gradient(90deg, dark, transparent);
+	}
+
+	&:after {
+		right: 0;
+		background: linear-gradient(-90deg, dark, transparent);
+	}
+}
+
+.slider {
+	transition: transform 0.2s ease-out;
+
+	&.active {
+		transition: none;
+
+		&,
+		& a {
+			cursor: grab;
+		}
+
+		+ .slider-indicator-bar {
+			.slider-indicator {
+				transition: none; 
+			}
+		}
+	}
+}
+
+.slider-indicator-bar {
+	position: relative;
+	height: 5px;
+	width: 100px;
+	margin: 30px auto 0;
+	background: lighten(dark, 6);
+	border-radius: 2px;
+
+	.slider-indicator {
+		position: absolute;
+		left: 0;
+		content: "";
+		height: 6px;
+		background-color: lighten(dark, 18);
+		border-radius: 2px;
+		transition: left 0.2s ease-in-out;
+	}
+}
+
+
+
+.slider-arrow {
+	display: block;
+	position: absolute;
+	top: 50%;
+	z-index: 2;
+	width: 30px;
+	height: 30px;
+	background: light;
+	border: 1px solid grey;
+	border-radius: 50%;
+	cursor: pointer;
+	transform: translateY(-100%);
+	transition: opacity 0.2s ease-in-out;
+	box-shadow: 0 0 7px 0 rgba(dark, 0.4);
+
+	&:hover {
+		box-shadow: 0 0 7px 0 rgba(dark, 0.8);
+	}
+
+	&:before {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-family: verdana;
+		font-size: 18px;
+		color: grey;
+	}
+
+	&.disabled {
+		opacity: 0;
+	}
+
+	&.left {
+		left: 5px;
+
+		&:before {
+			margin-left: -1px;
+			content: "\21F7";
+		}
+	}
+
+	&.right {
+		right: 5px;
+
+		&:before {
+			margin-left: 1px;
+			content: "\21F8";
+		}
+	}
+}
+ </style>
+</head>
+<body>
+    <main>
+        <section class="slider-section">
+            <h1 class="title"><B>ITINERARY</B></h2>
+                <div class="slider-container">
+                    <ol class="cards slider">
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a href="#">
+                                    <img src="ITI1.jpg">
+                                    <h2 class="title">7:00 AM</h2>
+                                    <p class="description">Morning Bliss🌲🚶</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI2.jpg">
+                                    <h2 class="title">9:00 AM</h2>
+                                    <p class="description">Breakfast Delight🥣🌞
+                                    </p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a href="#">
+                                    <img src="ITI3.jpg">
+                                    <h2 class="title">11:00 AM</h2>
+                                    <p class="description">Ridge Adventure🏰</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI4.jpg">
+                                    <h2 class="title">12:00 PM</h2>
+                                    <p class="description">Gothic Beauty🕍✨
+                                    </p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a href="#">
+                                    <img src="ITI5.jpg">
+                                    <h2 class="title">1:00 PM</h2>
+                                    <p class="description">Historical Mansion 🏛📚</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI6.jpg">
+                                    <h2 class="title">2:00 PM</h2>
+                                    <p class="description">Tasty Ridge Delight 🍗🍽 </p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a href="#">
+                                    <img src="ITI7.jpg">
+                                    <h2 class="title">4:00 PM</h2>
+                                    <p class="description">Wooden Treasures 🛍🪵</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI8.jpg">
+                                    <h2 class="title">5:00 PM</h2>
+                                    <p class="description">Divine Hill Retreat 🙏🌄</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a href="#">
+                                    <img src="ITI9.jpg">
+                                    <h2 class="title">6:00 PM</h2>
+                                    <p class="description">Picture Perfect Sunset 🌅📸</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI10.jpg">
+                                    <h2 class="title">7:30 PM</h2>
+                                    <p class="description">Yummy Bakery Delights 🥐🍰</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI11.jpg">
+                                    <h2 class="title">8:30 PM</h2>
+                                    <p class="description">Live Music Feast 🎶🍕</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="card-outter slider-item js-slider-item">
+                            <div class="card">
+                                <a>
+                                    <img src="ITI12.jpg">
+                                    <h2 class="title">9:30 PM</h2>
+                                    <p class="description">Nighttime Hostel Fun 🌙🏓</p>
+                                </a>
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="slider-indicator-bar js-slider-indicator-bar">
+                        <div class="slider-indicator js-slider-indicator"></div>
+                    </div>
+                    <span class="js-slider-arrow slider-arrow left disabled"></span>
+                    <span class="js-slider-arrow slider-arrow right"></span>
+                </div>
+        </section>
+    </main>
+  <script>
+   const THRESHOLD = 20;
+
+class SwipeSlider {
+	constructor(slider) {
+		this.startX = 0;
+		this.oldX = 0;
+		this.startPosition = 0;
+		this.snapPosition = 0;
+		this.isDown = false;
+		this.userHasSwiped = false;
+
+		// Init
+		this.cacheElements(slider);
+		this.setDimensions();
+		this.setIndicator();
+		this.bindHandlers();
+	}
+
+	cacheElements(slider) {
+		this.slider = slider;
+		this.items = this.slider.querySelectorAll(".js-slider-item");
+		this.indicator = slider.parentNode.querySelector(".js-slider-indicator");
+		this.indicatorBar = slider.parentNode.querySelector(
+			".js-slider-indicator-bar"
+		);
+		this.arrows = slider.parentNode.querySelectorAll(".js-slider-arrow");
+	}
+
+	setDimensions() {
+		const spacing = 20;
+		const sliderWidth = this.slider.offsetWidth;
+		const itemWidth = this.items[0].offsetWidth;
+		const itemsWidth = this.items.length * itemWidth;
+
+		this.itemWidth = itemWidth;
+		this.maxAllowedW =
+			sliderWidth < itemsWidth ? sliderWidth - itemsWidth - spacing : 0;
+	}
+
+	setIndicator() {
+		if (!this.indicator) return;
+
+		const times = (this.items.length * this.itemWidth) / this.slider.offsetWidth;
+		const length = this.indicatorBar.offsetWidth / times;
+
+		this.indicator.style.width = `${length}px`;
+	}
+
+	// Calculate
+
+	calculateBoundaries(position, bounce = true) {
+		const bounceMargin = bounce ? this.itemWidth / 4 : 0;
+
+		if (position > bounceMargin) return bounceMargin;
+		if (position < this.maxAllowedW - bounceMargin)
+			return this.maxAllowedW - bounceMargin;
+
+		return position;
+	}
+
+	calculateNextSnap(position, swipeNext) {
+		let snapPosition =
+			(parseInt(position / this.itemWidth, 10) - swipeNext) * this.itemWidth;
+
+		if (snapPosition < this.maxAllowedW) snapPosition = this.maxAllowedW;
+		return snapPosition;
+	}
+
+	moveIndicator(currPos) {
+		if (!this.indicator) return;
+
+		const indicatorPos =
+			this.indicatorBar.offsetWidth - this.indicator.offsetWidth;
+		const position = this.mapToRange(
+			currPos,
+			0,
+			this.maxAllowedW,
+			0,
+			indicatorPos
+		);
+
+		this.indicator.style.left = `${position}px`;
+	}
+
+	moveSlider(position, snapPosition = null) {
+		// When dragging we need 2 positions: current and snap on end
+		this.snapPosition = snapPosition != null ? snapPosition : position;
+
+		this.slider.setAttribute(
+			"style",
+			`transform: translate3d(${position}px, 0, 0)`
+		);
+	}
+
+	// Helpers
+
+	mapToRange(num, inMin, inMax, outMin, outMax) {
+		return ((num - inMin) * (outMax - outMin)) / (inMax - inMin + outMin);
+	}
+
+	toggleArrowDisable() {
+		this.arrows.forEach((el) => el.classList.remove("disabled"));
+
+		if (this.snapPosition === 0) this.arrows[0].classList.add("disabled");
+		else if (this.snapPosition === this.maxAllowedW)
+			this.arrows[1].classList.add("disabled");
+	}
+
+	// Handlers
+
+	bindHandlers() {
+		// TODO: maybe add mousedwon and touchstart listeners here. Then add inside them
+		// only the relevant move / end listeners (touch or mouse), and remove them on end
+		this.slider.addEventListener("touchstart", (e) => this.handleTouchStart(e));
+		this.slider.addEventListener("touchmove", (e) => this.handleTouchMove(e));
+		this.slider.addEventListener("touchend", (e) => this.handleEnd(e));
+
+		this.slider.addEventListener("mousedown", (e) => this.handleMouseStart(e));
+		this.slider.addEventListener("mousemove", (e) => this.handleMouseMove(e));
+		this.slider.addEventListener("mouseup", (e) => this.handleEnd(e));
+		this.slider.addEventListener("mouseleave", (e) => this.handleEnd(e));
+
+		this.slider.addEventListener("wheel", (e) => this.handleWheel(e));
+
+		this.slider.addEventListener("click", (e) => this.handleClick(e));
+		window.addEventListener("resize", () => this.handleResize());
+
+		if (!this.arrows.length) return;
+
+		this.arrows[0].addEventListener("click", (e) => this.handleArrowClick(e)); // left
+		this.arrows[1].addEventListener("click", (e) => this.handleArrowClick(e)); // right
+	}
+
+	// Start
+
+	handleTouchStart(e) {
+		if (e.touches.length > 1) return;
+
+		this.handleStart(e);
+	}
+
+	handleMouseStart(e) {
+		e.preventDefault();
+
+		this.handleStart(e);
+	}
+
+	handleStart(e) {
+		this.isDown = true;
+		this.userHasSwiped = false;
+		this.startPosition = this.snapPosition;
+		this.startX = (e.pageX || e.touches[0].pageX) - this.slider.offsetLeft;
+
+		this.slider.classList.add("active");
+	}
+
+	// Move
+
+	handleTouchMove(e) {
+		if (e.touches.length > 1 || !this.isDown) return;
+
+		this.handleMove(e);
+	}
+
+	handleMouseMove(e) {
+		if (!this.isDown) return;
+
+		e.preventDefault();
+		this.handleMove(e);
+	}
+
+	handleMove(e) {
+		const pageX = e.pageX || e.touches[0].pageX;
+		const currX = pageX - this.slider.offsetLeft;
+		const dist = currX - this.startX;
+
+		if (Math.abs(dist) < THRESHOLD) return;
+
+		const swipeNext = this.oldX - currX < 0 ? 0 : 1; // Swipe direction
+		const accelerate = this.mapToRange(
+			Math.abs(dist),
+			THRESHOLD,
+			window.innerWidth,
+			1,
+			3
+		);
+		const position = this.calculateBoundaries(
+			this.startPosition + dist * accelerate
+		);
+
+		e.preventDefault();
+
+		this.userHasSwiped = true;
+		this.oldX = currX;
+
+		this.moveSlider(position, this.calculateNextSnap(position, swipeNext));
+		this.moveIndicator(position);
+	}
+
+	// End
+
+	handleEnd() {
+		if (!this.isDown) return;
+
+		this.isDown = false;
+		this.slider.classList.remove("active");
+
+		this.moveSlider(this.snapPosition);
+		this.moveIndicator(this.snapPosition);
+
+		if (this.arrows.length > 0) this.toggleArrowDisable();
+	}
+
+	// Other Handlers
+
+	handleWheel(e) {
+		if (Math.abs(e.deltaX) < THRESHOLD) return;
+
+		const step = 40;
+		const snapPosition = this.snapPosition + step * Math.sign(e.deltaX);
+
+		this.slider.classList.add("active"); // Will be removed on mouseleave
+		this.moveSlider(this.calculateBoundaries(snapPosition, false));
+		this.moveIndicator(snapPosition);
+		this.toggleArrowDisable();
+	}
+
+	handleArrowClick(e) {
+		const direction = e.target.classList.contains("left") ? 1 : -1;
+		const position = this.calculateBoundaries(
+			this.snapPosition + direction * this.itemWidth,
+			false
+		);
+
+		this.slider.classList.remove("active");
+		this.moveSlider(position);
+		this.moveIndicator(position);
+		this.toggleArrowDisable();
+	}
+
+	handleResize() {
+		this.setIndicator();
+		this.setDimensions();
+
+		if (this.maxAllowedW > this.snapPosition) {
+			this.moveSlider(this.maxAllowedW);
+			this.moveIndicator(this.maxAllowedW);
+		}
+	}
+
+	handleClick(e) {
+		if (!this.userHasSwiped) return;
+
+		e.preventDefault(); // Disallow click while swiping
+		this.userHasSwiped = false;
+	}
+}
+
+const sliders = document.querySelectorAll(".slider");
+sliders.forEach((slider) => {
+	new SwipeSlider(slider);
+});
+
+  </script>
+</body>
+</html>
